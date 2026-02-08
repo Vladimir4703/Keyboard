@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtWidgets, QtMultimedia
+from PyQt5 import QtCore, QtWidgets, QtMultimedia, Qt
 
 BlackIdx = 1, 3, -1, 6, 8, 10
 WhiteIdx = 0, 2, 4, 5, 7, 9, 11
@@ -99,6 +99,24 @@ class Keyboard(QtWidgets.QWidget):
             }
         ''')
 
+    def keyPressEvent(self, event):
+        text = event.text().upper()
+
+        if text in ['Q', 'A', 'Z', 'I'] :
+            self.si.play()
+        elif text in ['W', 'S', 'X', 'O']:
+            self.fa.play()
+        elif text in ['E', 'D', 'C', 'P']:
+            self.lja.play()
+        elif text in ['R', 'F', 'V', 'K']:
+            self.mi.play()
+        elif text in ['T', 'G', 'L', 'M']:
+            self.do.play()
+        elif text in ['Y', 'H', 'N']:
+            self.re.play()
+        elif text in ['U', 'J', 'B']:
+            self.sol.play()
+
     def keyTriggered(self, key, pressed):
         octave, keyIdx = divmod(key, 12)
         keyName = '{}{}'.format(KeyNames[keyIdx], octave)
@@ -164,4 +182,5 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     keyboard = Keyboard()
     keyboard.show()
+    keyboard.setFocus()
     sys.exit(app.exec_())
